@@ -7,6 +7,7 @@ import axios from "axios";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import {url} from "../constanst"
 
 const AddNews = () => {
   const [editorState, setEditorState] = useState(() =>
@@ -33,7 +34,7 @@ const AddNews = () => {
       };
       setLoading(true);
 
-      await axios.post("api/newsitems/addnewsitem", payload);
+      await axios.post(`${url}api/newsitems/addnewsitem`, payload);
 
       setLoading(false);
 

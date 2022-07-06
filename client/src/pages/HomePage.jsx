@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import { useNavigate } from "react-router-dom";
+import { url } from "../constanst";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);
@@ -13,7 +14,7 @@ const HomePage = () => {
   const getData = async () => {
     try {
       setLoading(true);
-      const result = await axios.get("api/newsitems/getallnewsitems");
+      const result = await axios.get(`${url}api/newsitems/getallnewsitems`);
       setLoading(false);
       setNewsItems(result.data);
       console.log(newsItems);
