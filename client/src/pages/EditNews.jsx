@@ -1,43 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { EditorState, convertToRaw } from "draft-js";
+import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Layout from "../components/Layout";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddNews = () => {
+const EditNews = () => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const [newsItem, setNewsItem] = useState(null);
   const navigate = useNavigate();
-
   const user = JSON.parse(localStorage.getItem("user"));
+  const params = useParams();
 
-  useEffect(() => {
-    console.log(convertToRaw(editorState.getCurrentContent()));
-  }, [editorState]);
-
-  const save = async () => {
+  const edit = async () => {
     try {
       const payload = {
         title,
         description,
         content: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
         postedBy: { name: user.name, email: user.email, userid: user.userid },
+        newsid: params.newsid,
       };
       setLoading(true);
 
-      await axios.post("api/newsitems/addnewsitem", payload);
+      await axios.post("api/newsitems/editnewsitem", payload);
 
       setLoading(false);
 
-      toast("News added successfully!", "success");
+      toast("News edited successfully!", "success");
       navigate("/home");
     } catch (err) {
       setLoading(false);
@@ -46,10 +44,34 @@ const AddNews = () => {
     }
   };
 
+  const getData = async () => {
+    try {
+      const payload = { newsid: params.newsid };
+      setLoading(true);
+      const result = await axios.post("api/newsitems/getnewsitembyid", payload);
+      setTitle(result.data.title);
+      setDescription(result.data.description);
+      setEditorState(() =>
+        EditorState.createWithContent(
+          convertFromRaw(JSON.parse(result.data.content))
+        )
+      );
+      setNewsItem(result.data);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err.response);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <Layout>
       {loading && <Spinner />}
-      <h1 className="text-2xl font-semibold mt-5 ml-5">Add News</h1>
+      <h1 className="text-2xl font-semibold mt-5 ml-5">Edit News</h1>
       <div className="px-5 pt-5">
         <input
           type="text"
@@ -82,7 +104,7 @@ const AddNews = () => {
         </button>
         <button
           className="px-5 py-1 bg-green-500 text-sm text-white"
-          onClick={save}
+          onClick={edit}
         >
           SAVE
         </button>
@@ -91,4 +113,4 @@ const AddNews = () => {
   );
 };
 
-export default AddNews;
+export default EditNews;
