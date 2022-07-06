@@ -6,7 +6,7 @@ function SideBar({showSideBar}) {
   const menuItems = [
     {
       title: 'Home',
-      path: '/home',
+      path: '/',
     },
     {
       title: 'Posted',
