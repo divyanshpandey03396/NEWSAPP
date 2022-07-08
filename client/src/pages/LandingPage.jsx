@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import { useNavigate } from "react-router-dom";
-import { url } from "../constanst";
 
 const LandingPage = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -25,7 +24,7 @@ const LandingPage = () => {
     try {
       const payload = { email, password };
       setLoading(true);
-      const result = await axios.post(`${url}api/users/login`, payload);
+      const result = await axios.post("api/users/login", payload);
       console.log(result.data);
       toast("Login Successful!", "success");
       setLoading(false);
@@ -42,7 +41,7 @@ const LandingPage = () => {
     try {
       const payload = { email, password, name };
       setLoading(true);
-      await axios.post(`${url}api/users/register`, payload);
+      await axios.post("api/users/register", payload);
       toast("Registration successful, Please login!", "success");
       setLoading(false);
       setShowRegisterForm(false);
@@ -66,8 +65,8 @@ const LandingPage = () => {
         }`}
       >
         <h1>
-          <b className="text-[#2b8f74] text-8xl">NEWS</b>{" "}
-          <b className="text-8xl text-gray-700">APP</b>{" "}
+          <b className="text-[#2b8f74] text-8xl">SHEY</b>{" "}
+          <b className="text-8xl text-gray-700">NEWS</b>{" "}
         </h1>
         <p className="text-lg">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit.
