@@ -65,8 +65,8 @@ const LandingPage = () => {
         }`}
       >
         <h1>
-          <b className="text-[#2b8f74] text-8xl">SHEY</b>{" "}
-          <b className="text-8xl text-gray-700">NEWS</b>{" "}
+          <b className="text-[#2b8f74] text-8xl">NEWS</b>{" "}
+          <b className="text-8xl text-gray-700">APP</b>{" "}
         </h1>
         <p className="text-lg">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit.
