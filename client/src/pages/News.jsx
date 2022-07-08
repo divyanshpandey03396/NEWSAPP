@@ -5,7 +5,6 @@ import Layout from "../components/Layout";
 import Spinner from "../components/Spinner";
 import draftToHtml from "draftjs-to-html";
 import ReactHtmlParser from "react-html-parser";
-import { url } from "../constanst";
 
 const News = () => {
   const params = useParams();
@@ -16,7 +15,7 @@ const News = () => {
     try {
       const payload = { newsid: params.newsid };
       setLoading(true);
-      const result = await axios.post(`${url}api/newsitems/getnewsitembyid`, payload);
+      const result = await axios.post("api/newsitems/getnewsitembyid", payload);
       setNewsItem(result.data);
       setLoading(false);
     } catch (err) {

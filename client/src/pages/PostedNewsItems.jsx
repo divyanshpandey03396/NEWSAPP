@@ -4,7 +4,6 @@ import Spinner from "../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { url } from "../constanst";
 
 const PostedNewsItems = () => {
   const [loading, setLoading] = useState(false);
@@ -15,7 +14,7 @@ const PostedNewsItems = () => {
   const getData = async () => {
     try {
       setLoading(true);
-      const result = await axios.post(`${url}api/newsitems/getnewsitemsbyuserid`, {
+      const result = await axios.post("api/newsitems/getnewsitemsbyuserid", {
         userid: user.userid,
       });
       setLoading(false);
@@ -33,7 +32,7 @@ const PostedNewsItems = () => {
   const deleteItem = async (newsid) => {
     try {
       setLoading(true);
-      await axios.post(`${url}api/newsitems/deletenewsitem`, {
+      await axios.post("api/newsitems/deletenewsitem", {
         newsid,
       });
       setLoading(false);

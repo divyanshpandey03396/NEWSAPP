@@ -7,7 +7,6 @@ import axios from "axios";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import {url} from "../constanst"
 
 const EditNews = () => {
   const [editorState, setEditorState] = useState(() =>
@@ -32,7 +31,7 @@ const EditNews = () => {
       };
       setLoading(true);
 
-      await axios.post(`${url}api/newsitems/editnewsitem`, payload);
+      await axios.post("api/newsitems/editnewsitem", payload);
 
       setLoading(false);
 
@@ -49,7 +48,7 @@ const EditNews = () => {
     try {
       const payload = { newsid: params.newsid };
       setLoading(true);
-      const result = await axios.post(`${url}api/newsitems/getnewsitembyid`, payload);
+      const result = await axios.post("api/newsitems/getnewsitembyid", payload);
       setTitle(result.data.title);
       setDescription(result.data.description);
       setEditorState(() =>
