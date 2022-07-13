@@ -1,11 +1,11 @@
 {
-  "name": "shey-news-application",
+  "name": "sheynews-udemy",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "engines": {
-    "node": "16.14.2",
-    "npm": "8.5.0"
+    "node": "15.7.0",
+    "npm"  : "7.4.3"
   },
   "scripts": {
     "client-install": "npm install --prefix client",
@@ -18,11 +18,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.1",
-    "express": "^4.17.3",
-    "mongoose": "^6.4.3",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.8",
     "nodemon": "^2.0.15"
   }
 }

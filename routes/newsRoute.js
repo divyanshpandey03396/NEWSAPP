@@ -1,71 +1,67 @@
 const express = require("express");
+const NewsItemModel = require("../models/NewsItem");
 const router = express.Router();
-const NewsItemModel = require("../models/newsItem");
 
-router.post("/addnewsitem", async (request, response) => {
+router.post("/addnewsitem", async function (req, res) {
   try {
-    const newItem = new NewsItemModel(request.body);
-    await newItem.save();
-
-    response.status(200).send("News added successfully");
-  } catch (err) {
-    response.status(400).send(err);
+    const newitem = new NewsItemModel(req.body);
+    await newitem.save();
+    res.send("News added successfully");
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 
-router.get("/getallnewsitems", async (request, response) => {
+router.get("/getallnewsitems", async function (req, res) {
   try {
-    const data = await NewsItemModel.find({});
-
-    response.status(200).json(data);
-  } catch (err) {
-    response.status(400).send(err);
+    const data = await NewsItemModel.find();
+    res.send(data);
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 
-router.post("/getnewsitembyid", async (request, response) => {
+router.post("/getnewsitemsbyuserid", async function (req, res) {
   try {
-    const data = await NewsItemModel.findOne({ _id: request.body.newsid });
-
-    response.status(200).json(data);
-  } catch (err) {
-    response.status(400).send(err);
+    const data = await NewsItemModel.find();
+    const userPostedNewsItems = data.filter((obj)=>obj.postedBy.userid === req.body.userid)
+    res.send(userPostedNewsItems);
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 
-router.post("/getnewsitemsbyuserid", async (request, response) => {
+router.post("/getnewsitembyid", async function (req, res) {
   try {
-    const data = await NewsItemModel.find({});
-    const userPostedNewsItems = data.filter(
-      (obj) => obj.postedBy.userid === request.body.userid
-    );
-
-    response.status(200).send(userPostedNewsItems);
-  } catch (err) {
-    response.status(400).send(err);
+    const data = await NewsItemModel.findOne({_id : req.body.newsid});
+    res.send(data);
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 
-router.post("/editnewsitem", async (request, response) => {
-  try {
-    await NewsItemModel.findOneAndUpdate(
-      { _id: request.body.newsid },
-      request.body
-    );
 
-    response.status(200).send("News edited successfully");
-  } catch (err) {
-    response.status(400).send(err);
+router.post("/editnewsitem", async function (req, res) {
+  try {
+  
+    await NewsItemModel.findOneAndUpdate({_id : req.body.newsid} , req.body)
+    res.send("News edited successfully");
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 
-router.post("/deletenewsitem", async (request, response) => {
+
+router.post("/deletenewsitem", async function (req, res) {
   try {
-    await NewsItemModel.findOneAndDelete({ _id: request.body.newsid });
-    response.status(200).send("News deleted successfully");
-  } catch (err) {
-    response.status(400).send(err);
+  
+    await NewsItemModel.findOneAndDelete({_id : req.body.newsid})
+    res.send("News deleted successfully");
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
+
+
 
 module.exports = router;
