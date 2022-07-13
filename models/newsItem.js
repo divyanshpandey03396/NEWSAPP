@@ -1,17 +1,27 @@
 const mongoose = require("mongoose");
 
-const newsItemSchema = new mongoose.Schema(
+const newsItemsSchema = new mongoose.Schema(
   {
-    title: { type: String, required: "" },
-    description: { type: String, required: "" },
-    content: { type: String, required: "" },
-    postedBy: { type: Object, required: "" },
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    postedBy: {
+      type: Object,
+      required: true,
+    },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-const NewsItemModel = mongoose.model('newsitems' , newsItemSchema)
+const NewsItemModel = mongoose.model("newsItems", newsItemsSchema);
 
-module.exports = NewsItemModel
+module.exports = NewsItemModel;

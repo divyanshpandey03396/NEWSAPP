@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^0.25.0",
+    "axios": "^0.26.1",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
     "react": "^17.0.2",
@@ -14,9 +14,9 @@
     "react-draft-wysiwyg": "^1.14.7",
     "react-html-parser": "^2.0.2",
     "react-icons": "^4.3.1",
-    "react-router-dom": "^6.2.1",
+    "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
-    "react-toastify": "^8.1.0",
+    "react-toastify": "^8.2.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.2",
-    "postcss": "^8.4.5",
-    "tailwindcss": "^3.0.17"
+    "postcss": "^8.4.8",
+    "tailwindcss": "^3.0.23"
   }
 }

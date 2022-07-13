@@ -1,26 +1,34 @@
 const express = require("express");
-const UserModel = require("../models/UserModel");
 const router = express.Router();
+const UserItemModel = require("../models/userModel");
 
-router.post("/register", async function (req, res) {
-    try {
-      const newitem = new UserModel(req.body);
-      await newitem.save();
-      res.send("User added successfully");
-    } catch (error) {
-      res.status(400).send(error);
+router.post("/register", async (request, response) => {
+  try {
+    const newItem = new UserItemModel(request.body);
+    await newItem.save();
+    response.status(200).send("User added successfully");
+  } catch (err) {
+    response.status(400).send(err);
+  }
+});
+
+router.post("/login", async (request, response) => {
+  try {
+    const result = await UserItemModel.findOne({
+      email: request.body.email,
+      password: request.body.password,
+    });
+    if (!result) {
+      return response.status(404).send("Invalid credentials");
     }
-  });
+    delete result.password;
+    console.log(result);
+    response
+      .status(200)
+      .send({ name: result.name, email: result.email, userid: result._id });
+  } catch (err) {
+    response.status(400).send(err);
+  }
+});
 
-  router.post("/login", async function (req, res) {
-    try {
-      const result = await UserModel.findOne({email : req.body.email , password : req.body.password});
-      delete result.password
-      res.send(result);
-    } catch (error) {
-      res.status(400).send(error);
-    }
-  });
-
-
-  module.exports = router
+module.exports = router;
